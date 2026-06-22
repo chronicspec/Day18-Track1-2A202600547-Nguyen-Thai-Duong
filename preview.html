@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Review Classifier - UX Screens</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #667085;
+      --primary: #2563eb;
+      --primary-light: #e8f0ff;
+      --success: #16a34a;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --border: #e4e7ec;
+      --shadow: 0 14px 40px rgba(16, 24, 40, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    header {
+      padding: 32px 20px 12px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+    }
+
+    header p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 20px 56px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .screen {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .screen-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 26px;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      margin: 0 0 24px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .upload-box {
+      border: 2px dashed #c7d7fe;
+      background: #f8fbff;
+      border-radius: 18px;
+      padding: 26px;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .upload-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: var(--primary-light);
+      display: grid;
+      place-items: center;
+      margin: 0 auto 12px;
+      font-size: 28px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .secondary-button {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: #fff;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid #bfdbfe;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin: 16px 0;
+    }
+
+    li { margin: 8px 0; }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+
+    .checklist li::before {
+      content: "✓";
+      color: var(--success);
+      font-weight: 800;
+      margin-right: 8px;
+    }
+
+    .notice {
+      border-radius: 16px;
+      padding: 16px;
+      margin: 18px 0;
+      border: 1px solid var(--border);
+      background: #fafafa;
+    }
+
+    .notice.success {
+      border-color: #bbf7d0;
+      background: #f0fdf4;
+    }
+
+    .notice.warning {
+      border-color: #fed7aa;
+      background: #fff7ed;
+    }
+
+    .notice.danger {
+      border-color: #fecaca;
+      background: #fef2f2;
+    }
+
+    .notice strong { display: block; margin-bottom: 4px; }
+
+    .progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      overflow: hidden;
+      margin: 12px 0;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      background: var(--primary);
+      border-radius: 999px;
+    }
+
+    .confidence {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 14px;
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      margin-top: 12px;
+    }
+
+    .confidence strong {
+      font-size: 22px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .tag.success { background: #dcfce7; color: #166534; }
+    .tag.warning { background: #ffedd5; color: #9a3412; }
+    .tag.danger { background: #fee2e2; color: #991b1b; }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 640px) {
+      header h1 { font-size: 26px; }
+      .screen { min-height: auto; padding: 22px; }
+      .secondary-button { margin-left: 0; margin-top: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Customer Review Classifier</h1>
+    <p>Onboarding and file-state screens for your review analysis app.</p>
+  </header>
+
+  <main class="container">
+    <!-- Onboarding -->
+    <section class="screen" id="onboarding">
+      <div>
+        <div class="screen-label">01 · Onboarding</div>
+        <h2>Turn customer feedback into actionable insights</h2>
+        <p class="subtitle">Upload customer reviews and let AI classify sentiment, topics, issues, and improvement opportunities.</p>
+
+        <ul class="checklist">
+          <li>Classify reviews as Positive, Neutral, or Negative</li>
+          <li>Group reviews by topic such as delivery, pricing, support, or product quality</li>
+          <li>Detect repeated customer complaints and praises</li>
+          <li>Generate practical recommendations for your team</li>
+        </ul>
+
+        <div class="upload-box">
+          <div class="upload-icon">📄</div>
+          <strong>Upload your review file</strong>
+          <p class="footer-note">Supported formats: CSV, XLSX, JSON</p>
+        </div>
+      </div>
+      <div>
+        <a class="button" href="#valid-upload">Get Started</a>
+        <a class="secondary-button" href="details.html#sample">View Sample File</a>
+      </div>
+    </section>
+
+    <!-- Valid Upload -->
+    <section class="screen" id="valid-upload">
+      <div>
+        <div class="screen-label">02 · Upload Case</div>
+        <h2>Your file is ready for analysis</h2>
+        <p class="subtitle">We found valid review data and are preparing your AI analysis.</p>
+
+        <div class="notice success">
+          <strong>File accepted</strong>
+          customer_reviews_june.xlsx · 2,450 rows detected
+        </div>
+
+        <ul class="checklist">
+          <li>Detect sentiment for each review</li>
+          <li>Categorize reviews by topic</li>
+          <li>Identify common complaints and praises</li>
+          <li>Generate recommended next actions</li>
+        </ul>
+
+        <div class="progress"><span style="width: 100%;"></span></div>
+        <p class="footer-note">Analyzing reviews. Completed 100%.</p>
+      </div>
+      <div>
+        <a class="button" href="details.html#overview">Continue to Results</a>
+        <a class="secondary-button" href="#onboarding">Upload Another File</a>
+      </div>
+    </section>
+
+    <!-- Invalid Upload -->
+    <section class="screen" id="invalid-upload">
+      <div>
+        <div class="screen-label">03 · Upload Case</div>
+        <h2>We couldn't process this file</h2>
+        <p class="subtitle">Please upload a valid customer review file before starting the analysis.</p>
+
+        <div class="notice danger">
+          <strong>Unsupported or invalid file</strong>
+          The file must contain customer review text in CSV, XLSX, or JSON format.
+        </div>
+
+        <p>Your file should include:</p>
+        <ul>
+          <li>A review text column</li>
+          <li>Customer feedback or comment data</li>
+          <li>Readable column headers</li>
+          <li>UTF-8 encoding is recommended</li>
+        </ul>
+      </div>
+      <div>
+        <a class="button" href="#onboarding">Upload Another File</a>
+        <a class="secondary-button" href="details.html#sample">View Template</a>
+      </div>
+    </section>
+
+    <!-- Low Confidence Some Reviews -->
+    <section class="screen" id="partial-low-confidence">
+      <div>
+        <div class="screen-label">04 · Low Confidence Case</div>
+        <h2>Some reviews may need manual verification</h2>
+        <p class="subtitle">Most reviews were classified, but some records are unclear.</p>
+
+        <div class="notice warning">
+          <strong>Needs review</strong>
+          186 reviews were marked as uncertain because the text was short, mixed, or ambiguous.
+        </div>
+
+        <p>Common reasons:</p>
+        <ul>
+          <li>Mixed positive and negative sentiment in the same review</li>
+          <li>Very short text, such as “ok” or “bad”</li>
+          <li>Slang, abbreviations, or incomplete sentences</li>
+          <li>Multiple languages in one review</li>
+        </ul>
+
+        <div class="confidence">
+          <div>
+            <span class="tag warning">Needs Review</span>
+            <p class="footer-note">Average AI confidence</p>
+          </div>
+          <strong>62%</strong>
+        </div>
+      </div>
+      <div>
+        <br>
+        <a class="button" href="details.html#uncertain">Review Uncertain Items</a>
+        <a class="secondary-button" href="#onboarding">Upload Another File</a>
+      </div>
+    </section>
+
+    <!-- Low Confidence Entire Dataset -->
+    <section class="screen" id="dataset-low-confidence">
+      <div>
+        <div class="screen-label">05 · Low Confidence Case</div>
+        <h2>Analysis confidence is lower than expected</h2>
+        <p class="subtitle">We could not confidently identify reliable patterns in this file.</p>
+
+        <div class="notice warning">
+          <strong>Dataset quality issue</strong>
+          The results may not be reliable enough for business decisions yet.
+        </div>
+
+        <p>Possible reasons:</p>
+        <ul>
+          <li>Too few reviews</li>
+          <li>Many empty or duplicate rows</li>
+          <li>Missing review text column</li>
+          <li>Reviews are too noisy or inconsistent</li>
+        </ul>
+
+        <div class="confidence">
+          <div>
+            <span class="tag danger">Low Confidence</span>
+            <p class="footer-note">Dataset confidence score</p>
+          </div>
+          <strong>38%</strong>
+        </div>
+      </div>
+      <div>
+        <a class="button" href="details.html#quality">View Data Quality Report</a>
+        <a class="secondary-button" href="#onboarding">Upload Cleaner File</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

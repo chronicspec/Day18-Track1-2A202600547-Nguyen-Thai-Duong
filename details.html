@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Review Analysis Details</title>
+  <style>
+    :root {
+      --bg: #f5f7fb; --card: #fff; --text: #172033; --muted: #667085;
+      --primary: #2563eb; --border: #e4e7ec; --success: #16a34a;
+      --warning: #d97706; --danger: #dc2626;
+      --shadow: 0 14px 40px rgba(16, 24, 40, .08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: Inter, Arial, sans-serif; color: var(--text);
+      background: var(--bg); line-height: 1.5;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 10; display: flex;
+      justify-content: space-between; align-items: center; gap: 20px;
+      padding: 16px max(20px, calc((100% - 1120px) / 2));
+      background: rgba(255,255,255,.94); border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+    .brand { font-weight: 800; }
+    .back { color: var(--primary); text-decoration: none; font-weight: 700; }
+    main { width: min(1120px, calc(100% - 40px)); margin: auto; padding: 42px 0 64px; }
+    .hero {
+      display: flex; justify-content: space-between; align-items: end;
+      gap: 24px; margin-bottom: 28px; scroll-margin-top: 90px;
+    }
+    .eyebrow {
+      margin: 0 0 8px; color: var(--primary); font-size: 13px;
+      font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+    }
+    h1 { margin: 0; font-size: clamp(30px, 5vw, 46px); }
+    h2 { margin-top: 0; }
+    .muted { color: var(--muted); }
+    .button {
+      display: inline-block; padding: 12px 18px; color: #fff;
+      background: var(--primary); border-radius: 12px; text-decoration: none;
+      font-weight: 700; white-space: nowrap;
+    }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card {
+      padding: 24px; background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; box-shadow: var(--shadow);
+    }
+    .metric strong { display: block; margin: 4px 0; font-size: 34px; }
+    .wide { grid-column: 1 / -1; margin-top: 18px; scroll-margin-top: 90px; }
+    .bar-row {
+      display: grid; grid-template-columns: 100px 1fr 52px;
+      align-items: center; gap: 12px; margin: 15px 0;
+    }
+    .track { height: 10px; overflow: hidden; background: #edf0f5; border-radius: 999px; }
+    .fill { height: 100%; border-radius: inherit; }
+    .positive { background: var(--success); }
+    .neutral { background: var(--warning); }
+    .negative { background: var(--danger); }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 14px 10px; text-align: left; border-bottom: 1px solid var(--border); }
+    th { color: var(--muted); font-size: 13px; }
+    .tag {
+      display: inline-block; padding: 4px 9px; border-radius: 999px;
+      color: #9a3412; background: #ffedd5; font-size: 12px; font-weight: 800;
+    }
+    .quality-list {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+      padding: 0; list-style: none;
+    }
+    .quality-list li {
+      padding: 16px; background: #f8fafc; border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    code { padding: 3px 7px; background: #eef2ff; border-radius: 6px; }
+    @media (max-width: 760px) {
+      .hero { align-items: start; flex-direction: column; }
+      .grid { grid-template-columns: 1fr; }
+      .wide { grid-column: auto; }
+      .quality-list { grid-template-columns: 1fr; }
+      .table-wrap { overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topbar">
+    <span class="brand">Customer Review Classifier</span>
+    <a class="back" href="preview.html">← Back to upload</a>
+  </nav>
+
+  <main>
+    <section class="hero" id="overview">
+      <div>
+        <p class="eyebrow">Analysis complete</p>
+        <h1>Customer review insights</h1>
+        <p class="muted">customer_reviews_june.xlsx · 2,450 reviews · Updated June 18, 2026</p>
+      </div>
+      <a class="button" href="#uncertain">Review uncertain items</a>
+    </section>
+
+    <section class="grid">
+      <article class="card metric">
+        <span class="muted">Positive sentiment</span><strong>64%</strong>
+        <span style="color:var(--success)">↑ 8% from last month</span>
+      </article>
+      <article class="card metric">
+        <span class="muted">Needs attention</span><strong>186</strong>
+        <span class="muted">Low-confidence reviews</span>
+      </article>
+      <article class="card metric">
+        <span class="muted">Average confidence</span><strong>87%</strong>
+        <span class="muted">Reliable classification</span>
+      </article>
+
+      <article class="card wide">
+        <h2>Sentiment breakdown</h2>
+        <div class="bar-row"><span>Positive</span><div class="track"><div class="fill positive" style="width:64%"></div></div><strong>64%</strong></div>
+        <div class="bar-row"><span>Neutral</span><div class="track"><div class="fill neutral" style="width:21%"></div></div><strong>21%</strong></div>
+        <div class="bar-row"><span>Negative</span><div class="track"><div class="fill negative" style="width:15%"></div></div><strong>15%</strong></div>
+      </article>
+
+      <article class="card wide">
+        <h2>Top customer topics</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Topic</th><th>Reviews</th><th>Sentiment</th><th>Recommended action</th></tr></thead>
+            <tbody>
+              <tr><td>Product quality</td><td>742</td><td>82% positive</td><td>Feature positive quotes in marketing</td></tr>
+              <tr><td>Delivery</td><td>526</td><td>31% negative</td><td>Review late-delivery routes</td></tr>
+              <tr><td>Customer support</td><td>418</td><td>69% positive</td><td>Improve weekend response times</td></tr>
+              <tr><td>Pricing</td><td>297</td><td>44% neutral</td><td>Clarify plan value and inclusions</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card wide" id="uncertain">
+        <h2>Uncertain reviews</h2>
+        <p class="muted">These examples have mixed or incomplete language and should be checked manually.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Review</th><th>AI result</th><th>Confidence</th></tr></thead>
+            <tbody>
+              <tr><td>“Good product, but delivery took forever.”</td><td><span class="tag">Mixed</span></td><td>61%</td></tr>
+              <tr><td>“It is okay, I guess.”</td><td><span class="tag">Neutral</span></td><td>58%</td></tr>
+              <tr><td>“Support fixed it eventually.”</td><td><span class="tag">Mixed</span></td><td>63%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card wide" id="quality">
+        <h2>Data quality report</h2>
+        <ul class="quality-list">
+          <li><strong>2,450 valid rows</strong><br><span class="muted">98% of uploaded records</span></li>
+          <li><strong>32 duplicate rows</strong><br><span class="muted">Consider removing duplicates</span></li>
+          <li><strong>18 empty reviews</strong><br><span class="muted">Excluded from analysis</span></li>
+          <li><strong>UTF-8 encoding</strong><br><span class="muted">No character issues detected</span></li>
+        </ul>
+      </article>
+
+      <article class="card wide" id="sample">
+        <h2>Sample file structure</h2>
+        <p class="muted">Your upload should contain columns similar to these:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>review_id</th><th>review_text</th><th>rating</th><th>date</th></tr></thead>
+            <tbody><tr><td>REV-001</td><td>Fast delivery and excellent quality.</td><td>5</td><td>2026-06-01</td></tr></tbody>
+          </table>
+        </div>
+        <p class="muted">Required field: <code>review_text</code></p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
